@@ -26,23 +26,23 @@ public class GameMain extends JPanel implements MouseListener{
 	// the game board 
 	private Board board;
 	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
-	//HINT all of the states you require are shown in the code within GameMain
-	private ??? currentState; 
+	//TODO: create the enumeration for the variable below (GameState currentState) //COMPLETED
+	private GameState currentState = GameState.Playing; 
 	
-	// the current player
-	private ??? currentPlayer; 
+	// TODO: COMPLETED;
+	private Player currentPlayer = Player.Cross; 
+
 	
 	// for displaying game status message (EXAMPLE)
-	private JLabel statusBar;       
+	private JLabel statusBar;
 	
 
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {   
 		
-		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
+		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.     //COMPLETED     
 		//JUST CALL THE addMouseListener() METHOD
-		this.addMouseListener(???);
+		addMouseListener(this);
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -53,17 +53,20 @@ public class GameMain extends JPanel implements MouseListener{
 		
 		//layout of the panel is in border layout
 		setLayout(new BorderLayout());       
+
 		add(statusBar, BorderLayout.SOUTH);
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
 		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
-		board = new ???; //SIMPLY CALL THE CONSTRUCTOR
+		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name //COMPLETED
+		board = new Board(); 
 		
 		
-		//TODO: call the method to initialise the game board
-		//SIMPLY CALL THE initGame() METHOD
+		
+		
+		//TODO: call the method to initialise the game board //COMPLETED
+		initGame();
 	}
 	
 	public static void main(String[] args) {
@@ -73,15 +76,16 @@ public class GameMain extends JPanel implements MouseListener{
 				//create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
 				
-				//TODO: create the new GameMain panel and add it to the frame
+				//TODO: create the new GameMain panel and add it to the frame		//COMPLETED
 				//THIS IS THE MOST IMPORTANT PART. SINCE YOU CREATED THE JFrame CONTAINED
 				//WITHN frame VARIABLE, USE THE ADD METHOD TO ADD THE INSTANCE OF THIS GAME
-				frame.add(new ???); //NOTE THAT THE GAME IS STRATED BY CALLING GameMain()
+				frame.add(new GameMain()); //NOTE THAT THE GAME IS STRATED BY CALLING GameMain()
 				
 				
-				//TODO: set the default close operation of the frame to exit_on_close
-				frame.setDefaultCloseOperation(???);    
-				
+				//TODO: set the default close operation of the frame to exit_on_close //COMPLETED
+				frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
@@ -101,14 +105,14 @@ public class GameMain extends JPanel implements MouseListener{
 			statusBar.setForeground(Color.BLACK);          
 			if (currentPlayer == Player.Cross) {   
 			
-				//TODO: use the status bar to display the message "X"'s Turn
-				statusBar.setText(???); //JUST TYPE ANY MESSAGE HERE
+				//TODO: use the status bar to display the message "X"'s Turn //COMPLETED
+				statusBar.setText("X's Turn."); //JUST TYPE ANY MESSAGE HERE
 
 				
 			} else {    
 				
 				//TODO: use the status bar to display the message "O"'s Turn
-				//SAME HERE. SEE THE LINE FOR "X"
+				statusBar.setText("O's Turn");
 
 				
 			}       
@@ -147,12 +151,12 @@ public class GameMain extends JPanel implements MouseListener{
 			//check for win after play
 			if(board.hasWon(thePlayer, row, col)) {
 				
-				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
+				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner //COMPLETED
 				//FOR ALL ??? REFER TO GameState enumerators
 				if(thePlayer == Player.Cross)
-					currentState = ???;
+					currentState = GameState.Cross_won;
 				else
-					currentState = ???;
+					currentState = GameState.Nought_won;
 				
 			} else 
 				if (board.isDraw ()) {
@@ -196,8 +200,9 @@ public class GameMain extends JPanel implements MouseListener{
 			initGame();            
 		}   
 		
-		//TODO: redraw the graphics on the UI    
+		//TODO: redraw the graphics on the UI     //COMPLETED
 		//JUST CALL THE repaint() METHOD
+		repaint();
            
 	}
 		
